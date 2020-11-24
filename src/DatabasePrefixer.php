@@ -28,11 +28,16 @@ class DatabasePrefixer {
 	 * Setup the new prefix to use.
 	 *
 	 * @param string $newPrefix new prefix to use.
+	 * @param string $fromPrefix use a specific prefix to indentify tables that need replacement instead of using the one defined by wpdb.
 	 */
-	public function __construct( $newPrefix ) {
+	public function __construct( $newPrefix, $fromPrefix = false ) {
 		global $wpdb;
 
-		$this->oldPrefix = $wpdb->base_prefix;
+		if ( $fromPrefix ) {
+			$this->oldPrefix = $fromPrefix;
+		} else {
+			$this->oldPrefix = $wpdb->base_prefix;
+		}
 		$this->newPrefix = $newPrefix;
 	}
 
